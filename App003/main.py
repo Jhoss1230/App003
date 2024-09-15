@@ -1,49 +1,43 @@
-import flet as ft
-
-def main(page: ft.Page):
-    page.title="App003"  
+import flet as ft 
+def main(page: ft.page):
+    page.title="App003"
     page.bgcolor="purple"
-    page.horizontal_alignment=ft.MainAxisAlignment.CENTER
-    page.vertical_alignment=ft.MainAxisAlignment.CENTER
-    
-    lbl1=ft.Text("Sumar",
-                style=ft.TextStyle(size=40,weight="bold"))
-    lbl2=ft.Text("ingresa el primer numero ",
-                style=ft.TextStyle(size=40,weight="bold"))
-    
-    Img1=ft.Image(src="cerdo.jpg",width=300,height=300)
-    
-    
-    btnSi=ft.ElevatedButton("Sumar",
-                            color="green",
-                            width=100,
-                            height=50)
-    btnNo=ft.ElevatedButton("limpiar",
-                            color="red",
-                            width=100,
-                            height=50)
-    def no(e):
-        page.update()
-    def si(e):
-        Img1.src="cerdo.jpg"
-        page.update()
-        
-    btnSi.on_click=si
-    btnNo.on_click=no
-    page.update()
-    
-    page.add(
-        ft.Column(
-            [
-                lbl1,
-                Img1,
-                lbl2,
-                ft.Row([btnSi,btnNo],
-                        alignment=ft.MainAxisAlignment.CENTER,
-                        ),
-            ],
-            
-        )
-    )
+    page.horizontal_aligment=ft.MainAxisAlignment.CENTER
+    page.vertical_aligment=ft.MainAxisAlignment.CENTER
 
+    lbl1=ft.Text("Sumar",
+                 style=ft.TextStyle(size=40,weight="bold"))
+    lbl2=ft.Text("Limpiar",
+                 style=ft.TextStyle(size=40,weight="bold"))
+    Img1=ft.Image(src="cerdo.jpg",width=300,height=300)
+
+def calcular_suma(txt_field,page):
+    txt_num1=txt_field.value.Text(f"Introduce el primer numero: ")
+
+
+    suma=ft.ElevatedButton("Sumar",
+                               color="black",
+                               width=100,
+                               height=50)
+    def calcular_suma(txt_num1,txt_num2,txt_respuesta):
+        try:
+            num1=float(txt_num1.value.strip())
+            num2=float(txt_num2.value.strip())
+            resultado=num1 + num2 
+            txt_respuesta.value=f"Resultado:{resultado}"
+        except ValueError:
+            txt_respuesta.value="Error:Ingresa Valores Correctos"
+    
+    limpiar=ft.ElevatedButton("Limpiar",
+                                 color="red",
+                                 width=100,
+                                 height=50)
+    def limpiar (txt_num1,txt_num2,txt_respuesta):
+        txt_num1.value=""
+        txt_num2.value=""
+        txt_respuesta.value=f"Resultado: "
+        page.update()
+    
+    
+    
 ft.app(main)
